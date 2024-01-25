@@ -1,3 +1,4 @@
+"use client";
 import Day from "@/Components/Day";
 
 const week = [

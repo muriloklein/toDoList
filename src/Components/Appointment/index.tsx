@@ -1,3 +1,4 @@
+"use client";
 interface AppointmentType {
   id: number;
   name: string;
