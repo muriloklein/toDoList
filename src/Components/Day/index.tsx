@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Appointment from "../Appointment";
 
 interface AppointmentType {
@@ -13,11 +13,16 @@ interface Props {
 }
 
 const Day: React.FC<Props> = ({ day }) => {
-  const [appointments, setAppointments] = useState<AppointmentType[]>(() => {
-    const storedProducts = localStorage.getItem(`appointments${day}`);
-    if (!storedProducts) return [];
-    return JSON.parse(storedProducts);
-  });
+  const [appointments, setAppointments] = useState<AppointmentType[]>([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedAppointments = localStorage.getItem(`appointments${day}`);
+      if (storedAppointments) {
+        setAppointments(JSON.parse(storedAppointments));
+      }
+    }
+  }, [day]);
 
   const addAppointment = () => {
     const name = prompt("Informe o compromisso: ");
